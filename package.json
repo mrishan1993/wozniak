@@ -1,0 +1,22 @@
+{
+  "name": "wozniak",
+  "version": "1.0.0",
+  "description": "AI driven chat bot to tell what to cook. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/mrishan1993/wozniak.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/mrishan1993/wozniak/issues"
+  },
+  "homepage": "https://gitlab.com/mrishan1993/wozniak#readme",
+  "dependencies": {
+    "@hapi/hapi": "^19.2.0"
+  }
+}
