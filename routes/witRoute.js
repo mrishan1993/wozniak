@@ -1,10 +1,10 @@
 witController = require('../controllers/witController');
 
 const witRoute = {
-  helloWorld: {
+  witProcess: {
     method: 'GET',
     path: '/hello',
-    handler: witController.helloController,
+    handler: witController.witProcessController,
   },
 };
 

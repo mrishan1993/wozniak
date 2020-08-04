@@ -17,6 +17,9 @@
   },
   "homepage": "https://gitlab.com/mrishan1993/wozniak#readme",
   "dependencies": {
-    "@hapi/hapi": "^19.2.0"
+    "@hapi/hapi": "^19.2.0",
+    "async": "^3.2.0",
+    "mongoose": "^5.9.27",
+    "node-wit": "^6.0.0"
   }
 }

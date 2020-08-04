@@ -9,8 +9,19 @@ const init = async () => {
     port: 3000,
     host: 'localhost',
   });
+  await server.register({
+    plugin: require('hapi-mongodb'),
+    options: {
+      url:
+        'mongodb+srv://admin:admin@whatscooking.pbvbr.mongodb.net/sample_airbnb?retryWrites=true&w=majority',
+      settings: {
+        useUnifiedTopology: true,
+      },
+      decorate: true,
+    },
+  });
 
-  server.route(witRoute.helloWorld);
+  server.route(witRoute.witProcess);
   server.route(errorRoute.notFoundRoute);
 
   await server.start();
