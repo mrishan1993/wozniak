@@ -4,7 +4,7 @@ let interactive = null;
 var async = require('async');
 const config = require('../config');
 const helperFunc = require('../lib/helper');
-const Mongoose = require('mongoose');
+const axios = require('axios');
 // import wit libraries
 try {
   Wit = require('node-wit').Wit;
@@ -20,6 +20,9 @@ const client = new Wit({
 
 var witController = {
   witProcessController: async function(request, h) {
+    var totalCount = 0;
+    var recipes = [];
+    var returnObject = {};
     var result = await client
       .message('What is cooking for dinner')
       .then(data => {
@@ -53,12 +56,54 @@ var witController = {
     //     return results;
     //   },
     // );
-    const movie = await request.mongo.db
-      .collection('listingsAndReviews')
-      .find({})
-      .limit(20)
-      .toArray();
-    return movie;
+
+    // generate random number
+    var randomNumber = helperFunc.generateRandom(100 - 3);
+    // get 3 random recipes
+    await axios
+      .get(
+        'https://api.edamam.com/search?q=indian&app_id=' +
+          config.edamamApiID +
+          '&app_key=' +
+          config.edamamApiKey +
+          '&from=' +
+          randomNumber +
+          '&to=' +
+          (randomNumber + 3),
+      )
+      .then(function(response) {
+        // handle success
+        console.log(response);
+        if (
+          response.data &&
+          response.data.hits &&
+          response.data.hits.length > 0
+        ) {
+          recipes = response.data.hits;
+          returnObject = {
+            success: true,
+            data: recipes,
+            status: 200,
+          };
+        }
+      })
+      .catch(function(error) {
+        // handle error
+        console.log(error);
+        returnObject = {
+          success: false,
+          error: error.message,
+        };
+      })
+      .then(function() {
+        // always executed
+      });
+    // const movie = await request.mongo.db
+    //   .collection('listingsAndReviews')
+    //   .find({})
+    //   .limit(20)
+    //   .toArray();
+    return returnObject;
   },
 };
 
