@@ -25,8 +25,9 @@ var witController = {
     var entity = {};
     var entities = [];
     var intent = {};
+    var statement = request.query.statement;
     var result = await client
-      .message('What is cooking for dinner')
+      .message(statement)
       .then(data => {
         console.log('data', data);
         // callback(null, data);
@@ -88,7 +89,7 @@ var handleGetRecipe = async (intent, entity) => {
   if (entity.name === 'cook_time') {
     mealType = entity.value;
   } else {
-    q = entity.value;
+    q = entity.value || 'indian';
   }
   await axios
     .get(
